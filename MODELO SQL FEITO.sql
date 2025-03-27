@@ -1,0 +1,43 @@
+CREATE DATABASE  IF NOT EXISTS db_discoteca
+COLLATE utf8mb4_general_ci CHARSET utf8mb4;
+
+USE db_discoteca;
+
+CREATE TABLE IF NOT EXISTS tb_gravadora(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR (255) NOT NULL
+  ) AUTO_INCREMENT = 1;
+
+CREATE TABLE IF NOT EXISTS tb_tipo(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   banda VARCHAR (255) NOT NULL,
+   conserto VARCHAR (255) NOT NULL,
+   dupla VARCHAR (255) NOT NULL,
+   solo VARCHAR (255) NOT NULL
+) AUTO_INCREMENT = 1;
+
+CREATE TABLE IF NOT EXISTS tb_disco(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   titulo VARCHAR (255) NOT NULL,
+   genero VARCHAR (255) NOT NULL,
+   ano_lancamento DATE NOT NULL,
+   duracao VARCHAR (255) NOT NULL,
+   id_gravadora INT NOT NULL,
+   CONSTRAINT fk_gravadora_id FOREIGN KEY (id_gravadora) REFERENCES tb_gravadora (id)
+   ) AUTO_INCREMENT = 1;
+   
+   CREATE TABLE IF NOT EXISTS tb_musica(
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   titulo VARCHAR (255) NOT NULL,
+   duracao VARCHAR (255) NOT NULL,
+   id_disco INT NOT NULL,
+   CONSTRAINT fk_disco_id FOREIGN KEY (id_disco) REFERENCES tb_disco (id)
+   ) AUTO_INCREMENT = 1;
+   
+   CREATE TABLE IF NOT EXISTS tb_artista(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR (255) NOT NULL,
+    tipo VARCHAR (255) NOT NULL,
+    id_tipo INT NULL,
+    CONSTRAINT fk_tipo_id FOREIGN KEY (id_tipo) REFERENCES tb_tipo (id)
+    ) AUTO_INCREMENT = 1;
